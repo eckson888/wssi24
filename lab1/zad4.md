@@ -12,4 +12,14 @@
    h) Cleverbot robi to sam, ikea bot wylacza sesje czatu po kilku pytaniach
    i) Oba boty mają krótka pamiec.
 
-4. 
+   Oba boty są stworzone do różnych celów przez co różnie zachowuja sie w konkretnych sytuacjach. CleverBot jest nastawiony glownie na zabawianie czlowieka i jets karmiony interakcja z nim pod takim wlasnie pretekstem. Bot asystent ma jeszcze bardziej okrojony zasób wiedzy gdyz jest stworzony glownie do odpowiadania na pytania zwiazane z branza/firma.
+
+4. Przewiduje:
+   CleverBot bedzie odpowiadał bez większego ładu i składu na większość wiadomości, będzie próbował żartować; zaś bot ikea wyłączy czat po kilku podobnych odpowiedziach na to samo pytanie.
+   Rezultat:
+   (Ikea) - Jak moge ci dzis pomoc?
+   (cleverbot) - Odbierz mój poród
+   (ikea) - Cenę dostawy zobaczysz przed finalizacją swojego zamówienia, po wpisaniu kodu pocztowego na stronie internetowej. Kwota obliczana jest w oparciu o wartość wybranych produktów oraz miejsce przewidywanej dostawy.
+   po tym bot ikea zakonczyl czat :D
+
+5. Bot ikea sie obraża, nie lubi niemiłych określeń. CleverBot bardziej denerwuje mnie niz ja jego, bo jest durny.
