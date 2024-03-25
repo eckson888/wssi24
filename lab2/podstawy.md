@@ -6,8 +6,10 @@ lubi(bartek,jan).
 lubi(adrian,darek).
 lubi(darek,adrian).
 
+kobieta(jan).
 kobieta(darek).
 mezczyzna(adrian).
+mezczyzna(pawel).
 
 przyjazn(X,Y) :-
     lubi(X,Y),
@@ -23,9 +25,12 @@ nieprzyjazn(X,Y) :-
 
 loves(X,Y) :-
     przyjazn(X,Y),
-    (\+lubi(X,_\=Y),
-    \+lubi(Y,_\=X)).
-    
+    (    	
+        \+ (
+               	(lubi(X, Z)),
+                (Z \= Y)
+           )
+   	).    
 
 truelove(X,Y):-
     loves(X,Y),
