@@ -26,51 +26,51 @@ class DecisionTree:
     def _grow_tree(self, x, y, depth=0):
         n_samples, n_feats = x.shape
         n_labels = len(np.unique(y))      
-        if depth>=self.max_depth or n_labels==1 or n_samples<self.min_samples_split:
+        if n_labels==1 or depth>=self.max_depth or n_samples<self.min_samples_split:
             leaf_value = self._most_common_label(y)
             return Node(value=leaf_value)
           
-        feat_idx = np.random.choice(n_feats, self.n_features, replace=False)
-        best_thresh, best_feature = self._best_split(x,y,feat_idx)
-        left_idxs, right_idxs = self._split(x[:, best_feature], best_thresh)
-        left = self._grow_tree(x[left_idxs, :], y[left_idxs], depth+1)
-        right = self._grow_tree(x[right_idxs, :], y[right_idxs], depth+1)
-        return Node(best_feature,best_thresh,left,right)
+        feat_index = np.random.choice(n_feats, self.n_features, replace=False)
+        best_threshold, best_feature = self._best_split(x,y,feat_index)
+        left_indexes, right_indexes = self._split(x[:, best_feature], best_threshold)
+        left = self._grow_tree(x[left_indexes, :], y[left_indexes], depth+1)
+        right = self._grow_tree(x[right_indexes, :], y[right_indexes], depth+1)
+        return Node(best_feature,best_threshold,left,right)
 
     def _best_split(self,x,y,feat_idxs):
         best_gain = -1
-        split_idx, split_threshold = None, None
+        split_index, split_threshold = None, None
 
-        for feat_idx in feat_idxs:
-            x_column = x[:, feat_idx]
+        for feat_index in feat_idxs:
+            x_column = x[:, feat_index]
             threshold = np.unique(x_column)
             for thr in threshold:
                 gain = self._information_gain(y,x_column, thr)
                 if best_gain<gain:
                     best_gain = gain
-                    split_idx = feat_idx
+                    split_index = feat_index
                     split_threshold = thr
-        return split_threshold, split_idx
+        return split_threshold, split_index
 
     def _information_gain(self, y, X_column, threshold):
         
         parent_entropy = self._entropy(y)
         
-        left_idxs, right_idxs = self._split(X_column,threshold)
-        if len(left_idxs) == 0 or len(right_idxs) == 0:
+        left_indexes, right_indexes = self._split(X_column,threshold)
+        if len(left_indexes) == 0 or len(right_indexes) == 0:
             return 0
 
         n = len(y)
-        n_l, n_r = len(left_idxs), len(right_idxs)
-        e_l, e_r = self._entropy(y[left_idxs]), self._entropy(y[right_idxs])
+        n_l, n_r = len(left_indexes), len(right_indexes)
+        e_l, e_r = self._entropy(y[left_indexes]), self._entropy(y[right_indexes])
         child_entropy = (n_l/n)*e_l+(n_r/n)*e_r
         information_gain = parent_entropy - child_entropy
         return information_gain
 
     def _split(self, X_column, split_thresh):
-        left_idxs = np.argwhere(X_column<split_thresh).flatten()
-        right_idxs = np.argwhere(X_column>split_thresh).flatten()
-        return left_idxs, right_idxs
+        left_indexes = np.argwhere(X_column<split_thresh).flatten()
+        right_indexes = np.argwhere(X_column>split_thresh).flatten()
+        return left_indexes, right_indexes
 
     def _entropy(self, y):#x
         hist = np.bincount(y)
